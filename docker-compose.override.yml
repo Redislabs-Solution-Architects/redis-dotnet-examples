@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  redis.dotnet.examples.queryparams:
+    links:
+      - redis
+    environment:
+        ASPNETCORE_ENVIRONMENT: Development
+        ASPNETCORE_URLS: https://+:443;http://+:80
+        REDIS_HOST: redis
+        REDIS_PORT: 6379
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+  redis:
+    image: "redis/redis-stack-server"
+    ports:
+      - 6379:6379

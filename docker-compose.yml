@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  redis.dotnet.examples.queryparams:
+    image: ${DOCKER_REGISTRY-}redisdotnetexamples
+    build:
+      context: .
+      dockerfile: examples/Redis.DotNet.Examples.QueryParams/Dockerfile
