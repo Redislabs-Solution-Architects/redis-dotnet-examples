@@ -1,0 +1,33 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.4"
+services:
+  redis.dotnet.examples.queryparams:
+    build:
+      context: "/Users/roberto.perez/Documents/Projects/redis-dotnet-examples"
+      dockerfile: "examples/Redis.DotNet.Examples.QueryParams/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "/riderDebugger/linux-arm64/dotnet/dotnet"
+    - "/riderDebugger/JetBrains.Debugger.Worker.exe"
+    - "--mode=server"
+    - "--frontend-port=57100"
+    - "--backend-port=57300"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      NUGET_PACKAGES: "/Users/roberto.perez/.nuget/packages"
+      NUGET_FALLBACK_PACKAGES: "/Users/roberto.perez/.nuget/packages"
+      RIDER_DEBUGGER_LOG_DIR: "/riderLogs"
+      RESHARPER_LOG_CONF: "/riderLogsConf/backend-log.xml"
+    image: "redisdotnetexamples:dev"
+    ports:
+    - "127.0.0.1:57003:57100"
+    - "127.0.0.1:57203:57300"
+    volumes:
+    - "/Users/roberto.perez/.nuget/packages:/root/.nuget/fallbackpackages"
+    - "/Users/roberto.perez/Documents/Projects/redis-dotnet-examples/examples/Redis.DotNet.Examples.QueryParams:/app:rw"
+    - "/Users/roberto.perez/Documents/Projects/redis-dotnet-examples:/src:rw"
+    - "/Users/roberto.perez/.local/share/JetBrains/RiderRemoteDebugger/2023.2.3/LinuxArm64:/riderDebugger"
+    - "/Applications/Rider.app/Contents/bin:/riderLogsConf"
+    - "/Users/roberto.perez/Library/Logs/JetBrains/Rider2023.2/DebuggerWorker/JetBrains.Debugger.Worker.2023_11_03_16_11_16:/riderLogs:rw"
+    working_dir: "/app"
