@@ -2,7 +2,7 @@
 using Redis.DotNet.Examples.QueryParams.Models.Contracts;
 using Redis.OM.Modeling;
 
-namespace Redis.DotNet.Examples.QueryParams.Models.OM
+namespace Redis.DotNet.Examples.QueryParams.Models.Domain
 {
     [Document(StorageType = StorageType.Json)]
     public class Customer

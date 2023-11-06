@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   redis.dotnet.examples.queryparams:
+    container_name: "redis.dotnet.examples.queryparams"
     image: ${DOCKER_REGISTRY-}redisdotnetexamples
     build:
       context: .

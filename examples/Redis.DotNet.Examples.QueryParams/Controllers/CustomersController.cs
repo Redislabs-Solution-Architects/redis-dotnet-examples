@@ -17,11 +17,11 @@ namespace Redis.DotNet.Examples.QueryParams.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] CustomerQueryParamaters parameters)
+        public IActionResult Get([FromQuery] CustomerQueryParameters parameters)
         {
             var results = _customerService.Search(parameters);
 
-            return Ok();
+            return Ok(results.ToList());
         }
     }
 }

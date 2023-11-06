@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Redis.DotNet.Examples.QueryParams.Models.OM
+namespace Redis.DotNet.Examples.QueryParams.Models.Domain
 {
     public class Address
     {

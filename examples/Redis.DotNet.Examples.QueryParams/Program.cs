@@ -1,4 +1,6 @@
-﻿using Redis.DotNet.Examples.QueryParams.Services;
+﻿using Redis.DotNet.Examples.QueryParams.Helpers;
+using Redis.DotNet.Examples.QueryParams.Models.Domain;
+using Redis.DotNet.Examples.QueryParams.Services;
 using Redis.OM;
 using Redis.OM.Contracts;
 using StackExchange.Redis;
@@ -12,6 +14,11 @@ Console.WriteLine($"Before Connecting");
 
 var redisConnection = await ConnectionMultiplexer.ConnectAsync($"{redisHost}:{redisPort}, ssl=false"); // Replace with your Redis server connection details
 var provider = new RedisConnectionProvider(redisConnection);
+var connection = provider.Connection;
+
+connection.CreateIndex(typeof(Customer));
+var customers = provider.RedisCollection<Customer>();
+await RedisHelper.SeedCustomers(customers);
 
 // Add services to the container.
 builder.Services.AddSingleton<IConnectionMultiplexer>(redisConnection);
