@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["examples/Redis.DotNet.Examples.QueryParams/Redis.DotNet.Examples.QueryParams.csproj", "examples/Redis.DotNet.Examples.QueryParams/"]
+COPY ["src/Redis.DotNet.Examples.QueryParams/Redis.DotNet.Examples.QueryParams.csproj", "examples/Redis.DotNet.Examples.QueryParams/"]
 RUN dotnet restore "examples/Redis.DotNet.Examples.QueryParams/Redis.DotNet.Examples.QueryParams.csproj"
 COPY . .
-WORKDIR "/src/examples/Redis.DotNet.Examples.QueryParams"
+WORKDIR "/src/RedisOMExamples/Redis.DotNet.Examples.QueryParams"
 RUN dotnet build "Redis.DotNet.Examples.QueryParams.csproj" -c Release -o /app/build
 
 FROM build AS publish

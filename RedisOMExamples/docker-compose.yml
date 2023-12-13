@@ -6,4 +6,4 @@ services:
     image: ${DOCKER_REGISTRY-}redisdotnetexamples
     build:
       context: .
-      dockerfile: examples/Redis.DotNet.Examples.QueryParams/Dockerfile
+      dockerfile: src/Redis.DotNet.Examples.QueryParams/Dockerfile
