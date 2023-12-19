@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Redis.DotNet.Examples.QueryParams.Models.Contracts;
+using Redis.DotNet.Examples.QueryParams.Models.Domain;
+using Redis.DotNet.Examples.QueryParams.Models.Requests;
+using Redis.DotNet.Examples.QueryParams.Models.Responses;
 using Redis.DotNet.Examples.QueryParams.Services;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Redis.DotNet.Examples.QueryParams.Controllers
 {
@@ -17,11 +17,17 @@ namespace Redis.DotNet.Examples.QueryParams.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] CustomerQueryParameters parameters)
+        public IActionResult Get([FromQuery] GetCustomerQuery parameters)
         {
-            var results = _customerService.Search(parameters);
+            var results = _customerService
+                .Search(parameters)
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize);
 
-            return Ok(results.ToList());
+            var pagedResponse = PagedResponse<Customer>
+                 .Create(results, parameters.PageNumber, parameters.PageSize);
+
+            return Ok(pagedResponse);
         }
     }
 }
