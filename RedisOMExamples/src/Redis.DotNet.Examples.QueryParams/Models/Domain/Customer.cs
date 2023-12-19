@@ -1,6 +1,4 @@
-﻿using System;
-using Redis.DotNet.Examples.QueryParams.Models.Contracts;
-using Redis.OM.Modeling;
+﻿using Redis.OM.Modeling;
 
 namespace Redis.DotNet.Examples.QueryParams.Models.Domain
 {
@@ -11,10 +9,10 @@ namespace Redis.DotNet.Examples.QueryParams.Models.Domain
 
         [Indexed] public string FullName { get; set; } = null!;
         [Indexed] public string Email { get; set; } = null!;
-
+        [Indexed(Sortable = true)] public int Age { get; set; }
         [Indexed] public string[] Publications { get; set; } = null!;
 
-        [Indexed] public Address? Address { get; set; }
+        [Indexed(CascadeDepth = 2)] public Address? Address { get; set; }
     }
 }
 

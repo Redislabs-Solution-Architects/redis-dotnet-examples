@@ -1,4 +1,5 @@
-﻿using Redis.DotNet.Examples.QueryParams.Helpers;
+﻿using Redis.DotNet.Examples.QueryParams;
+using Redis.DotNet.Examples.QueryParams.Helpers;
 using Redis.DotNet.Examples.QueryParams.Models.Domain;
 using Redis.DotNet.Examples.QueryParams.Services;
 using Redis.OM;
@@ -9,20 +10,24 @@ var builder = WebApplication.CreateBuilder(args);
 var redisHost = Environment.GetEnvironmentVariable("REDIS_HOST");
 var redisPort = Environment.GetEnvironmentVariable("REDIS_PORT");
 
+builder.Services.Configure<DemoOptions>
+        (builder.Configuration.GetSection("DemoOptions"));
+
+var settings = builder.Configuration
+    .GetSection(DemoOptions.Section)
+    .Get<DemoOptions>();
+
 Console.WriteLine($"{redisHost}:{redisPort}");
 Console.WriteLine($"Before Connecting");
 
 var redisConnection = await ConnectionMultiplexer.ConnectAsync($"{redisHost}:{redisPort}, ssl=false"); // Replace with your Redis server connection details
 var provider = new RedisConnectionProvider(redisConnection);
-var connection = provider.Connection;
-
-connection.CreateIndex(typeof(Customer));
-var customers = provider.RedisCollection<Customer>();
-await RedisHelper.SeedCustomers(customers);
 
 // Add services to the container.
-builder.Services.AddSingleton<IConnectionMultiplexer>(redisConnection);
 builder.Services.AddSingleton<IRedisConnectionProvider>(provider);
+
+builder.Services.AddHostedService<StartupService>();
+
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 
 builder.Services.AddControllers();

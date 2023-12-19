@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redis.DotNet.NRedisStack.QueryParams", "Redis.DotNet.NRedisStack.QueryParams\Redis.DotNet.NRedisStack.QueryParams.csproj", "{784D43BA-E86A-465E-B6DB-0B665C52BAC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{784D43BA-E86A-465E-B6DB-0B665C52BAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{784D43BA-E86A-465E-B6DB-0B665C52BAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{784D43BA-E86A-465E-B6DB-0B665C52BAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{784D43BA-E86A-465E-B6DB-0B665C52BAC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE8067A6-0B3B-4328-917C-F4A7C2CFD1F8}
+	EndGlobalSection
+EndGlobal
