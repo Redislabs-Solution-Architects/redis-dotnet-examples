@@ -6,8 +6,6 @@
 
         public string? Email { get; set; } = string.Empty;
 
-        public string[]? Publications { get; set; }
-
         public Address? Address { get; set; }
     }
 }
