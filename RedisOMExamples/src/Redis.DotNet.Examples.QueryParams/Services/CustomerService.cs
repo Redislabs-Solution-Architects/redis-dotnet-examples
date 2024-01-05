@@ -1,8 +1,8 @@
 ﻿using Redis.DotNet.Examples.QueryParams.Models.Requests;
 using Redis.DotNet.Examples.QueryParams.Models.Domain;
 using Redis.OM.Contracts;
-using System.Reflection;
 using Redis.OM.Searching;
+using LinqKit;
 
 namespace Redis.DotNet.Examples.QueryParams.Services
 {
@@ -41,11 +41,39 @@ namespace Redis.DotNet.Examples.QueryParams.Services
             //var customerInCity = _customerCollection.Where(x => x.Address.City == parameters.Address.City).ToList();
 
             // match by Publications
-            var filteredPublications = _customerCollection.Where(x => x.Publications.Contains("Conclusions Drawn from the Phenomena of Capillarity")).ToList();
+            //var filteredPublications = _customerCollection.Where(x => x.Publications.Contains("Conclusions Drawn from the Phenomena of Capillarity")).ToList();
+            var predicate = PredicateBuilder.New<Customer>(true); // Start with true to have an "AND" neutral element
 
-            // Find customer that contains {parameters.FullName}
-            return _connectionProvider.RedisCollection<Customer>()
-                    .Where(x => x.FullName.Contains(parameters.FullName));
+            var query = _connectionProvider.RedisCollection<Customer>().AsQueryable();
+
+            if (!string.IsNullOrEmpty(parameters.FullName))
+            {
+                predicate = predicate.And(c => c.FullName.Contains(parameters.FullName));
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Email))
+            {
+                predicate = predicate.And(c => c.Email == parameters.Email);
+            }
+
+
+            query = query.Where(predicate);
+            var result = query.ToList();
+
+            //var query = _connectionProvider.RedisCollection<Customer>()
+            //    .Where(x => x.FullName.Contains(parameters.FullName));
+
+            //if (!string.IsNullOrEmpty(parameters.Email))
+            //    query = _connectionProvider.RedisCollection<Customer>()
+            //        .Where(x => x.FullName.Contains(parameters.FullName) || x.Email == parameters.Email);
+
+            //if(!string.IsNullOrEmpty(parameters.Address.AddressLine1))
+            //{
+            //    query = _connectionProvider.RedisCollection<Customer>()
+            //        .Where(x => x.FullName.Contains(parameters.FullName) || x.Address.AddressLine1 == parameters.Address.AddressLine1);
+            //}
+
+            return query;
         }
     }
 }

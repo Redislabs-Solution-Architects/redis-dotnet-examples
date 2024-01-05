@@ -21,7 +21,11 @@ namespace Redis.DotNet.Examples.QueryParams.Models.Responses
 
         public static PagedResponse<T> Create(IEnumerable<T> query, int page, int pageSize)
         {
-            var totalItems = query.Count();
+            int totalItems = 0;
+
+            if (query != null)
+                totalItems = query.Count();
+
             var items = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             return new(items, page, pageSize, totalItems);

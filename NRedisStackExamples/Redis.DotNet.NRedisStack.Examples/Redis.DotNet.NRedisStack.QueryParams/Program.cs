@@ -25,19 +25,19 @@ var ft = db.FT();
 
 await RedisHelper.DeleteAllKeys(redisConnection, db);
 
-if (ft._List().Length == 0)
-{
-    var customerSchema = new Schema()
-    .AddTextField(new FieldName("$.FullName", "fullname"))
-    .AddTextField(new FieldName("$.Email", "email"))
-    .AddTextField(new FieldName("$.Address.AddressLine1", "address"));
+//if (ft._List().Length == 0)
+//{
+//var customerSchema = new Schema()
+//.AddTextField(new FieldName("$.FullName", "fullname"))
+//.AddTagField(new FieldName("$.Email", "email"))
+//.AddTextField(new FieldName("$.Address.AddressLine1", "address"));
 
-    //Create Index
-    ft.Create(
-        "idx:customers",
-        new FTCreateParams().On(IndexDataType.JSON).Prefix("customer:"),
-        customerSchema);
-}
+////Create Index
+//ft.Create(
+//    "idx:customers",
+//    new FTCreateParams().On(IndexDataType.JSON).Prefix("customer:"),
+//    customerSchema);
+////}
 
 await RedisHelper.SeedCustomers(db);
 
